@@ -8,7 +8,7 @@ Plain HTML, CSS and JavaScript. No account, no backend, no build step. Templates
 ![Dependencies](https://img.shields.io/badge/build%20step-none-8b8b90)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
-**Live demo:** https://wishissue.github.io/wishva/
+**Live demo:** https://wishissue.github.io/wishwa/
 
 ![Wishwa main interface with the template gallery](screenshots/main-ui.webp)
 
