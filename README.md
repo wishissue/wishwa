@@ -189,4 +189,4 @@ Issues and pull requests are welcome. Please open an issue first for larger chan
 
 ---
 
-Made for making things. 🎨
+Made for making things. 
