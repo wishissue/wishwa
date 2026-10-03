@@ -167,3 +167,17 @@ input[type=range]::-moz-range-thumb{background:#fff;box-shadow:0 0 0 2px var(--a
 #sel .h.rot::after{background:var(--ac3)}#sel .h.rot svg{stroke:var(--ac)}
 #sel .rdo{background:var(--pn);border-color:var(--gb)}
 .ki:hover{background:var(--hv)}
+
+/* font search window */
+#fl{position:fixed;inset:0;z-index:120;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);padding:12px}
+#fl.on{display:flex}
+#fl .fbx{width:min(560px,100%);max-height:min(84vh,720px);display:flex;flex-direction:column;gap:8px;padding:14px}
+#fl .fh{display:flex;align-items:center;justify-content:space-between}#fl .fh b{font-size:15px}
+#fl .fsr{display:flex;gap:6px}#fl .fsr input{flex:1;min-width:0}
+#fl .seg{margin:0}
+#fll{overflow-y:auto;flex:1;min-height:140px}
+.fr{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;border:1px solid transparent;cursor:pointer}
+.fr:hover{background:var(--gl);border-color:var(--gb)}
+.fr .fp{flex:1;min-width:0;font-size:24px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fr small{color:var(--mu);font-size:10.5px;white-space:nowrap}
+.fr .ok{font-style:normal;font-size:10px;padding:2px 7px;border-radius:6px;background:rgba(255,255,255,.1)}
