@@ -1,4 +1,4 @@
-# Design Editor
+# Wishwa
 
 **A free, flexible, browser-based design editor.**  
 Plain HTML, CSS and JavaScript. No account, no backend, no build step. Templates, text effects, image tools and layers, then export.
@@ -10,11 +10,11 @@ Plain HTML, CSS and JavaScript. No account, no backend, no build step. Templates
 
 **Live demo:** https://wishissue.github.io/design-editor/
 
-![Design Editor main interface with the template gallery](screenshots/main-ui.webp)
+![Wishwa main interface with the template gallery](screenshots/main-ui.webp)
 
 ---
 
-## Why Design Editor?
+## Why Wishwa?
 
 I wanted a Canva-style tool that is free, quick to open and easy to bend to my own needs, without sign-ups, paywalls or watermarks. So I built one.
 
@@ -106,7 +106,7 @@ Keep all four of `index.html`, `html.html`, `css.css` and `java.js` in the same 
 
 **Keyboard shortcuts:** `Ctrl+K` command palette · `Ctrl+Z` / `Ctrl+Y` undo and redo · `Ctrl+D` duplicate · `Ctrl+C` / `Ctrl+V` copy and paste (images too) · `Ctrl+A` select all · `Ctrl+G` group · `Ctrl+Shift+G` ungroup · `Shift`-click multi-select · `Del` delete · arrows nudge (`Shift` = 10px) · `Ctrl+scroll` zoom · `Esc` close or cancel
 
-> **Tip:** Press `Ctrl+K` and start typing. Almost everything in the editor is in the palette.
+> **Tip:** Press `Ctrl+K` and start typing. Almost everything in Wishwa is in the palette.
 
 ---
 
@@ -128,7 +128,7 @@ Then open http://localhost:8000.
 
 > **Note:** `index.html` loads `html.html` with `fetch()`, which browsers block on `file://` URLs. Double-clicking `index.html` therefore shows a short help message instead of the editor. Use any static server (`python3 -m http.server`, `npx serve`, VS Code Live Server) or GitHub Pages.
 
-An internet connection is needed for fonts, icons and asset search. The editor itself loads without it, but fonts will fall back to system fonts.
+An internet connection is needed for fonts, icons and asset search. Wishwa itself loads without it, but fonts will fall back to system fonts.
 
 ### Deploy your own copy (GitHub Pages)
 
@@ -151,13 +151,13 @@ Everything is kept in your browser's `localStorage`, on your device only:
 - Saved effect looks
 - Theme and recent commands
 
-There is no server and no account. **Clearing site data deletes all of it**, so export a project as JSON to keep a backup. Very large projects can exceed browser storage; the editor warns you when autosave pauses.
+There is no server and no account. **Clearing site data deletes all of it**, so export a project as JSON to keep a backup. Very large projects can exceed browser storage; Wishwa warns you when autosave pauses.
 
 ---
 
 ## Credits, licenses and attribution
 
-The editor's own code is MIT licensed. It loads the following from the web:
+Wishwa's own code is MIT licensed. It loads the following from the web:
 
 | Resource | Used for | License |
 | --- | --- | --- |
@@ -171,7 +171,7 @@ The editor's own code is MIT licensed. It loads the following from the web:
 
 ### Please read before publishing a design
 
-- **CC BY and CC BY-SA images need attribution.** Photos and art from Openverse and Wikimedia may require you to credit the author wherever you publish your design. The editor shows the credit and source link when you select the image, but it is **not printed on the exported image**. Crediting is your responsibility.
+- **CC BY and CC BY-SA images need attribution.** Photos and art from Openverse and Wikimedia may require you to credit the author wherever you publish your design. Wishwa shows the credit and source link when you select the image, but it is **not printed on the exported image**. Crediting is your responsibility.
 - **Logos can be trademarks.** A logo file may be freely licensed while the brand behind it is still a registered trademark. Using someone's logo in your design does not give you the right to imply endorsement or affiliation.
 - **Twemoji is CC BY 4.0** and requires attribution.
 - **Check each asset's license** before commercial use. Being searchable here does not make an asset free for every purpose.
@@ -189,4 +189,4 @@ Issues and pull requests are welcome. Please open an issue first for larger chan
 
 ---
 
-Made for making things. 
+Made for making things.
