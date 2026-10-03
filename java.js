@@ -2,6 +2,9 @@ window.ICN=function(){try{window.lucide&&lucide.createIcons()}catch(e){}};
 
 let W=1280,H=720;const $=s=>document.querySelector(s);let S={o:[],bg:{c:'#0a0a0a',c2:'#4a0a12',g:1,a:135}},sel=null,zoom=1,snap=true,hist=[],fut=[],tab='templates',uid=1,asset={cat:'All',q:'',items:[],pg:0,tk:0},tool={},cropId=null;
 const FONTS=['Inter','Bebas Neue','Anton','Pacifico','Montserrat','Oswald','Bangers','Permanent Marker','Orbitron','Playfair Display','Lobster','Righteous','Georgia','Courier New'];
+const MYF={g:[],c:[]};
+function fontOpts(cur){const mine=new Set([...MYF.g,...MYF.c].map(x=>x.n)),op=f=>`<option ${f==cur?'selected':''}>${esc(f)}</option>`,my=FONTS.filter(f=>mine.has(f));return(cur&&!FONTS.includes(cur)?op(cur):'')+FONTS.filter(f=>!mine.has(f)).map(op).join('')+(my.length?`<optgroup label="My fonts">${my.map(op).join('')}</optgroup>`:'')}
+function fontSec(){const rows=[...MYF.g.map(x=>[x.n,'Google']),...MYF.c.map(x=>[x.n,'Uploaded'])];return `<h4 style="margin-top:16px">${ic('type')} Fonts</h4><button class="b" data-fontlib style="width:100%;justify-content:center;margin-bottom:6px">${ic('search')}Search fonts</button><button class="b" data-fontup style="width:100%;justify-content:center;margin-bottom:8px">${ic('upload')}Upload font file</button>${rows.length?rows.map(([n,k])=>`<div class="fch" data-usefont="${esc(n)}" style="font-family:'${esc(n)}';font-size:15px"><span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(n)}</span><small class="mu" style="font-family:Inter,system-ui;font-size:10px">${k}</small><b class="rm" data-delfont="${esc(n)}">×</b></div>`).join(''):'<p class="mu" style="font-size:11px">Fonts you add show up here and in the font menu. They are saved in this browser.</p>'}`}
 const ic=n=>`<i data-lucide="${n}"></i>`;
 const tplGet=()=>{try{return JSON.parse(localStorage.getItem('ws_tpl')||'[]')}catch(e){return[]}};
 const TABS=[['templates','layout-template','Templates'],['elements','shapes','Elements'],['assets','search','Assets'],['text','type','Text'],['uploads','upload','Uploads'],['background','image','Backdrop'],['effects','sparkles','Effects'],['brand','palette','Brand'],['layers','layers','Layers']];
@@ -43,7 +46,7 @@ let h=`<h4>${ic('sliders-horizontal')} ${o.t}</h4>`;
 h+=`<div class="g2"><label class="r" style="grid-template-columns:14px 1fr">X<input type="text" data-p="x" value="${o.x}"></label><label class="r" style="grid-template-columns:14px 1fr">Y<input type="text" data-p="y" value="${o.y}"></label><label class="r" style="grid-template-columns:14px 1fr">W<input type="text" data-p="w" value="${o.w}"></label><label class="r" style="grid-template-columns:14px 1fr">H<input type="text" data-p="h" value="${o.h}"></label></div>`;
 h+=`<label class="r">${ic('rotate-cw')}Rotate<input type="range" min="-180" max="180" value="${o.r}" data-p="r"><span>${o.r}</span></label><label class="r">${ic('blend')}Opacity<input type="range" min="0" max="1" step=".01" value="${o.o}" data-p="o"><span>${o.o}</span></label>`;
 if(o.t!='text'&&o.t!='line')h+=`<label class="r">${ic('square')}Radius<input type="range" min="0" max="400" value="${o.rad}" data-p="rad"><span>${o.rad}</span></label>`;
-if(o.t=='text'){h+=`<h4>${ic('type')} Type</h4><textarea data-p="txt" rows="3">${esc(o.txt)}</textarea><br><br><select data-p="font">${FONTS.map(f=>`<option ${f==o.font?'selected':''}>${f}</option>`).join('')}</select>`+seg([['left',ic('align-left')],['center',ic('align-center')],['right',ic('align-right')]],o.al,'al')+`<label class="r">Size<input type="range" min="8" max="400" value="${o.fs}" data-p="fs"><span>${o.fs}</span></label><label class="r">Weight<input type="range" min="300" max="900" step="100" value="${o.fw}" data-p="fw"><span>${o.fw}</span></label><label class="r">Spacing<input type="range" min="-5" max="40" value="${o.ls}" data-p="ls"><span>${o.ls}</span></label><label class="r">Line<input type="range" min=".7" max="2" step=".05" value="${o.lh}" data-p="lh"><span>${o.lh}</span></label>`}
+if(o.t=='text'){h+=`<h4>${ic('type')} Type</h4><textarea data-p="txt" rows="3">${esc(o.txt)}</textarea><br><br><select data-p="font">${fontOpts(o.font)}</select><div style="display:flex;gap:6px;margin-top:6px"><button class="b" data-fontlib style="flex:1;justify-content:center">${ic('search')}Search fonts</button><button class="b" data-fontup title="Upload font file">${ic('upload')}</button></div>`+seg([['left',ic('align-left')],['center',ic('align-center')],['right',ic('align-right')]],o.al,'al')+`<label class="r">Size<input type="range" min="8" max="400" value="${o.fs}" data-p="fs"><span>${o.fs}</span></label><label class="r">Weight<input type="range" min="300" max="900" step="100" value="${o.fw}" data-p="fw"><span>${o.fw}</span></label><label class="r">Spacing<input type="range" min="-5" max="40" value="${o.ls}" data-p="ls"><span>${o.ls}</span></label><label class="r">Line<input type="range" min=".7" max="2" step=".05" value="${o.lh}" data-p="lh"><span>${o.lh}</span></label>`}
 h+=o.t=='img'?`<h4 style="margin-top:10px">${ic('square')} Border</h4><div style="display:flex;gap:6px;align-items:center"><input type="color" data-p="stroke" value="${o.stroke}" data-t="Border color"><span style="color:var(--mu)">border color</span></div>`:`<h4 style="margin-top:10px">${ic('palette')} Fill</h4><div style="display:flex;gap:6px;align-items:center"><input type="color" data-p="fill" value="${o.fill}"><button class="b ${o.g?'on':''}" data-gt>${ic('blend')}Gradient</button><input type="color" data-p="stroke" value="${o.stroke}" data-t="Stroke color"><span style="color:var(--mu)">stroke</span></div>`;
 if(o.g){const st=o.stops||[[0,o.fill],[1,o.c2]];h+=`<div id="ge" style="background:linear-gradient(90deg,${st.map(s=>s[1]+' '+s[0]*100+'%').join(',')})">${st.map((s,i)=>`<div class="stop" data-i="${i}" style="left:${s[0]*100}%;background:${s[1]}"></div>`).join('')}</div><div style="display:flex;gap:5px"><input type="color" data-sc value="${st[st.length-1][1]}"><button class="b" data-as>${ic('plus')}Stop</button></div><label class="r">Angle<input type="range" min="0" max="360" value="${o.a||135}" data-p="a"><span>${o.a||135}</span></label>`}
 h+=`<label class="r">Border<input type="range" min="0" max="30" value="${o.sw}" data-p="sw"><span>${o.sw}</span></label>`;
@@ -185,7 +188,7 @@ function lp(){const p=$('#lp');let h='';
 if(tab=='templates'){const mine=tplGet(),bgc=b=>b.g?`linear-gradient(${b.a}deg,${b.c},${b.c2})`:b.c,list=TPL.map((x,i)=>[x,i]).filter(([x])=>tplCat=='All'||x.cat==tplCat);h=seg(TCATS.map(c=>[c]),tplCat,'tc')+`<div class="g2">${list.map(([x,i])=>`<div class="card" data-tpl="${i}"><div class="tp" style="background:${bgc(x.bg)}"></div><span>${esc(x.n)}<small class="mu">${x.w}×${x.h}</small></span></div>`).join('')}</div><h4 style="margin-top:14px">My Templates</h4><div class="g2">${mine.map((m,i)=>`<div class="card" data-my="${i}"><div class="tp" style="background:${bgc(m.s.bg)}"></div><span>${esc(m.n)}</span></div>`).join('')||'<p class="mu" style="grid-column:1/3">Nothing saved yet — use “Save as Template”.</p>'}</div>`}
 if(tab=='elements')h=`<h4>Shapes</h4><div class="g2">${Object.keys(SH).map(k=>`<button class="b" data-sh="${k}">${ic({rect:'square',rounded:'square',circle:'circle',glass:'glass-water',line:'minus',triangle:'triangle',star:'star',hex:'hexagon',arrow:'move-right'}[k])}${k}</button>`).join('')}</div>`;
 if(tab=='assets'){h=`<input type="search" id="aq" placeholder="Search ${asset.cat.toLowerCase()}…" value="${esc(asset.q)}">${seg(AC.map(c=>[c]),asset.cat,'ac')}<div class="g2" id="ag">${asset.items.map(acard).join('')}</div>${asset.busy?'<p class="mu">Loading…</p>':''}${asset.msg?`<p class="mu">${asset.msg}</p>`:''}<br><button class="b" id="more" ${asset.busy?'disabled':''} style="width:100%;justify-content:center">${ic('cloud-download')}Fetch 30 more</button><p class="mu" style="font-size:9px">Icons &amp; logos: Iconify open-source sets · Photos &amp; art: Openverse (CC0/PD/CC BY/BY-SA) with Wikimedia Commons fallback · Avatars: DiceBear. Tap a credit to open the source and license.</p>`}
-if(tab=='text')h=`<h4>Add text</h4>${[['Heading','Add a heading',120,800,'Inter'],['Subheading','Add a subheading',64,700,'Inter'],['Body','Body text goes here',34,400,'Inter'],['Display','BIG TITLE',150,400,'Bebas Neue'],['Script','Script style',90,400,'Pacifico']].map((t,i)=>`<button class="b" style="width:100%;margin-bottom:6px;font:${t[3]} 15px '${t[4]}'" data-tx="${i}">${t[0]}</button>`).join('')}`;
+if(tab=='text')h=`<h4>Add text</h4>${[['Heading','Add a heading',120,800,'Inter'],['Subheading','Add a subheading',64,700,'Inter'],['Body','Body text goes here',34,400,'Inter'],['Display','BIG TITLE',150,400,'Bebas Neue'],['Script','Script style',90,400,'Pacifico']].map((t,i)=>`<button class="b" style="width:100%;margin-bottom:6px;font:${t[3]} 15px '${t[4]}'" data-tx="${i}">${t[0]}</button>`).join('')}${fontSec()}`;
 if(tab=='uploads')h=`<h4>Uploads</h4><button class="b" style="width:100%;justify-content:center;padding:20px" id="upb">${ic('upload')}Choose image / PNG</button><p style="color:var(--mu)">Or drop files onto the canvas, or paste an image (Ctrl+V).</p>${UP.length?`<h4 style="margin-top:12px">This session</h4><div class="g2">${UP.map((u,i)=>`<div class="card" data-up="${i}"><img class="ti" src="${u}"></div>`).join('')}</div>`:''}`;
 if(tab=='background')h=`<h4>Background</h4>${seg([['Solid'],['Gradient']],S.bg.g?'Gradient':'Solid','bg')}<div style="display:flex;gap:8px"><input type="color" id="bc1" value="${S.bg.c}"><input type="color" id="bc2" value="${S.bg.c2}"></div><label class="r">Angle<input type="range" id="ba" min="0" max="360" value="${S.bg.a}"><span></span></label><h4>Presets</h4><div class="g2">${[['#050505','#e11d2e'],['#0a0a0a','#4a0a12'],['#111','#444'],['#1a0505','#8f0f1a'],['#2b0a0a','#000'],['#f5f5f5','#d4d4d4']].map((c,i)=>`<div class="card" data-bp="${i}" style="height:44px;background:linear-gradient(135deg,${c[0]},${c[1]})"></div>`).join('')}</div>`;
 if(tab=='effects'){const o=get();h=`<h4>Effects</h4><div class="g2">${FXL.map(f=>`<button class="b ${o&&(o.fx||'')==f[0]?'on':''}" data-fx="${f[0]}">${ic(f[1])}${f[2]}</button>`).join('')}</div>`+(o?(o.fx?`<details><summary>Advanced</summary><label class="r">Color<input type="color" data-fp="fxc" value="${fc(o)}"><span></span></label><label class="r">Strength<input type="range" min=".2" max="2.5" step=".05" value="${fi(o)}" data-fp="fxi"><span>${fi(o)}</span></label></details>`:''):`<p class="mu">Select an object, then pick an effect.</p>`)}
@@ -244,7 +247,7 @@ else{const ins=(o.sw&&o.t!='line'&&o.t!='poly')?o.sw/2:0;x.beginPath();if(o.t=='
 x.fillStyle=(o.t=='glass'||o.fx=='glass')?'rgba(255,255,255,.2)':fs;x.fill();if(o.sw&&o.t!='line'){x.lineWidth=o.sw;x.strokeStyle=o.stroke;x.stroke()}}
 fxmask(x,o);x.restore();if(tc){x=base;x.drawImage(tc,0,0)}}return c}
 $('#exp').onclick=async()=>{const f=$('#fmt').value;if(f=='JSON'){return dl(URL.createObjectURL(new Blob([JSON.stringify({...JSON.parse(sv()),W,H})],{type:'application/json'})),'project.json')}
-toast('Rendering…');if(document.fonts)await Promise.all(S.o.filter(o=>o.font).map(o=>document.fonts.load(`${o.fw} 40px '${o.font}'`).catch(()=>0)));const c=await drawAll();
+toast('Rendering…');if(document.fonts)await Promise.all(S.o.filter(o=>o.font).map(o=>document.fonts.load(`${o.fw} 40px '${o.font}'`,o.txt||' ').catch(()=>0)));const c=await drawAll();
 if(f=='PDF'){const j=c.toDataURL('image/jpeg',.95),b=atob(j.split(',')[1]),n=b.length,u=new Uint8Array(n);for(let i=0;i<n;i++)u[i]=b.charCodeAt(i);const E=s=>new TextEncoder().encode(s),parts=[],off=[];let len=0;const P=d=>{parts.push(d);len+=d.length};
 P(E('%PDF-1.4\n'));const ob=[`<</Type/Catalog/Pages 2 0 R>>`,`<</Type/Pages/Kids[3 0 R]/Count 1>>`,`<</Type/Page/Parent 2 0 R/MediaBox[0 0 ${W} ${H}]/Contents 4 0 R/Resources<</XObject<</I 5 0 R>>>>>>`];
 ob.forEach((s,i)=>{off.push(len);P(E(`${i+1} 0 obj\n${s}\nendobj\n`))});const ct=`q ${W} 0 0 ${H} 0 0 cm /I Do Q`;off.push(len);P(E(`4 0 obj\n<</Length ${ct.length}>>\nstream\n${ct}\nendstream\nendobj\n`));off.push(len);P(E(`5 0 obj\n<</Type/XObject/Subtype/Image/Width ${W}/Height ${H}/ColorSpace/DeviceRGB/BitsPerComponent 8/Filter/DCTDecode/Length ${n}>>\nstream\n`));P(u);P(E('\nendstream\nendobj\n'));const xr=len;P(E(`xref\n0 6\n0000000000 65535 f \n${off.map(o=>String(o).padStart(10,'0')+' 00000 n \n').join('')}trailer\n<</Size 6/Root 1 0 R>>\nstartxref\n${xr}\n%%EOF`));return dl(URL.createObjectURL(new Blob(parts,{type:'application/pdf'})),'thumbnail.pdf')}
@@ -918,4 +921,140 @@ addAsset=async function(a){if(!a)return;toast('Adding…');
  const L=[a.full,a.full&&prox(a.full,1600),a.thumb2,a.thumb,a.thumb2&&prox(a.thumb2,1200)].filter(Boolean);
  for(const u of[...new Set(L)]){try{const r=await tmo(fetch(u),15000);if(!r.ok)throw 0;const b=await r.blob();if(!/^image\//.test(b.type))throw 0;addImg(await shrink(b),{name:a.title.slice(0,24),credit:a.credit,link:a.link});return}catch(e){}}
  toast('Could not load this asset — try another')};
+})();
+
+/* ===== Font manager: search Google Fonts, upload your own, remember them ===== */
+(function(){
+const GK='ws_gf',GC='ws_gcat',GCSS='https://fonts.googleapis.com/css2?family=';
+const CATL={'sans-serif':'Sans','serif':'Serif','display':'Display','handwriting':'Script','monospace':'Mono'};
+const CHIPS=[['All',''],['Sans','sans-serif'],['Serif','serif'],['Display','display'],['Script','handwriting'],['Mono','monospace']];
+/* Popular-first list. Also the offline fallback when the full catalog can't be fetched. */
+const POP='Roboto:s|Open Sans:s|Lato:s|Montserrat:s|Poppins:s|Inter:s|Oswald:s|Raleway:s|Nunito:s|Playfair Display:r|Merriweather:r|Ubuntu:s|Rubik:s|Work Sans:s|Mulish:s|Bebas Neue:d|Anton:d|Lobster:d|Pacifico:h|Dancing Script:h|Caveat:h|Permanent Marker:h|Shadows Into Light:h|Amatic SC:h|Satisfy:h|Great Vibes:h|Sacramento:h|Kaushan Script:h|Bangers:d|Righteous:d|Orbitron:d|Press Start 2P:d|Abril Fatface:d|Alfa Slab One:d|Archivo Black:s|Black Ops One:d|Bungee:d|Cinzel:r|Comfortaa:d|Fredoka:s|Josefin Sans:s|Kanit:s|Barlow:s|Barlow Condensed:s|Fjalla One:s|Teko:s|Titillium Web:s|Quicksand:s|Cabin:s|Karla:s|DM Sans:s|DM Serif Display:r|Space Grotesk:s|Manrope:s|Outfit:s|Sora:s|Lexend:s|Urbanist:s|Plus Jakarta Sans:s|Noto Sans:s|Noto Serif:r|PT Sans:s|PT Serif:r|Source Sans 3:s|Source Serif 4:r|Libre Baskerville:r|Cormorant Garamond:r|Lora:r|Crimson Text:r|EB Garamond:r|Bitter:r|Arvo:r|Zilla Slab:r|Roboto Slab:r|Roboto Condensed:s|Roboto Mono:m|Fira Sans:s|Fira Code:m|JetBrains Mono:m|Source Code Pro:m|Space Mono:m|IBM Plex Sans:s|IBM Plex Serif:r|IBM Plex Mono:m|Exo 2:s|Chakra Petch:s|Saira:s|Russo One:s|Passion One:d|Staatliches:d|Squada One:d|Monoton:d|Rubik Mono One:s|Bowlby One:d|Luckiest Guy:d|Creepster:d|Special Elite:d|Rock Salt:h|Gloria Hallelujah:h|Indie Flower:h|Patrick Hand:h|Courgette:h|Yellowtail:h|Parisienne:h|Allura:h|Tangerine:h|Merienda:h|Handlee:h|Cookie:h|Marck Script:h|Lilita One:d|Chewy:d|Fugaz One:d|Titan One:d|Paytone One:s|Baloo 2:d|Secular One:s|Changa One:d|Acme:s|Concert One:d|Fredericka the Great:d|Unbounded:d|Syne:s|Big Shoulders Display:d|League Spartan:s|Epilogue:s|Figtree:s|Albert Sans:s|Red Hat Display:s|Be Vietnam Pro:s|Hind:s|Mukta:s|Heebo:s|Tajawal:s|Cairo:s|Noto Sans JP:s|Noto Sans KR:s|Noto Sans Devanagari:s|Noto Sans Arabic:s|Noto Naskh Arabic:r';
+const MAP={s:'sans-serif',r:'serif',d:'display',h:'handwriting',m:'monospace'};
+const POPL=POP.split('|').map(x=>{const[n,c]=x.split(':');return[n,MAP[c]||'',[]]}),RANK=new Map(POPL.map((f,i)=>[f[0],i]));
+let CAT=null,catP=null,offline=false,q='',cat='',shown=40,box=null;
+const prev=new Map(),CFF=new Map();
+const clean=n=>String(n).replace(/['"\\<>&`]/g,'').replace(/\s+/g,' ').trim().slice(0,60);
+const have=n=>FONTS.includes(n);
+const saveG=()=>{try{localStorage.setItem(GK,JSON.stringify(MYF.g))}catch(e){}};
+const refresh=()=>{try{rp()}catch(e){}if(tab=='text')lp()};
+/* ---- IndexedDB for uploaded font files (too big for localStorage) ---- */
+const idb=()=>new Promise((res,rej)=>{try{const r=indexedDB.open('ws_fonts',1);r.onupgradeneeded=()=>r.result.createObjectStore('f',{keyPath:'n'});r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)}catch(e){rej(e)}});
+const tx=async(mode,fn)=>{const d=await idb();return new Promise((res,rej)=>{const t=d.transaction('f',mode),r=fn(t.objectStore('f'));t.oncomplete=()=>{d.close();res(r&&r.result)};t.onerror=t.onabort=()=>rej(t.error)})};
+/* ---- Google Fonts ---- */
+const gurl=(n,w,text)=>GCSS+encodeURIComponent(n).replace(/%20/g,'+')+(w&&w.length?':wght@'+w.join(';'):'')+(text?'&text='+encodeURIComponent(text):'')+'&display=swap';
+function addLink(href,name){return new Promise(res=>{const l=document.createElement('link');l.rel='stylesheet';l.href=href;if(name)l.dataset.gf=name;l.onload=()=>res(l);l.onerror=()=>{l.remove();res(null)};document.head.appendChild(l)})}
+async function loadG(n,w){
+  const tries=w&&w.length?[w]:[[400,700],null];
+  for(const t of tries){
+    const l=await addLink(gurl(n,t),n);if(!l)continue;
+    const ws=t||[400],f=await Promise.all(ws.map(x=>document.fonts.load(`${x} 40px '${n}'`).catch(()=>[])));
+    if(f.some(a=>a.length))return{w:t||[]};
+    l.remove();
+  }
+  return null}
+async function catalog(){
+  if(CAT)return CAT;if(catP)return catP;
+  catP=(async()=>{
+    try{const c=JSON.parse(localStorage.getItem(GC)||'null');if(c&&Date.now()-c.t<6048e5&&c.d.length>200)return CAT=c.d}catch(e){}
+    try{
+      const ctl=new AbortController(),to=setTimeout(()=>ctl.abort(),12000);
+      const r=await fetch('https://api.fontsource.org/v1/fonts',{signal:ctl.signal});clearTimeout(to);
+      if(!r.ok)throw 0;const j=await r.json();if(!Array.isArray(j))throw 0;
+      const d=j.filter(f=>f&&f.family&&(!f.type||f.type=='google')).map(f=>[f.family,f.category||'',(f.weights||[]).map(Number).filter(w=>w>=100&&w<=900).sort((a,b)=>a-b)]);
+      if(d.length<100)throw 0;
+      try{localStorage.setItem(GC,JSON.stringify({t:Date.now(),d}))}catch(e){}
+      return CAT=d;
+    }catch(e){offline=true;return CAT=POPL}
+  })();
+  return catP}
+/* ---- search window ---- */
+function build(){
+  if(box)return;
+  box=document.createElement('div');box.id='fl';
+  box.innerHTML=`<div class="glass fbx"><div class="fh"><b>Fonts</b><button class="b" id="flx" aria-label="Close">×</button></div><div class="fsr"><input type="search" id="flq" placeholder="Search Google Fonts…" autocomplete="off"><button class="b" id="flu" title="Upload font file">${ic('upload')}Upload</button></div><div class="seg" id="flc">${CHIPS.map(c=>`<button class="b" data-fc="${c[1]}">${c[0]}</button>`).join('')}</div><div id="fll"></div><button class="b" id="flm" style="justify-content:center;display:none">Show more</button><p class="mu" id="fln" style="font-size:11px;margin:0"></p></div><input type="file" id="ffu" accept=".ttf,.otf,.woff,.woff2,font/ttf,font/otf,font/woff,font/woff2" multiple hidden>`;
+  document.body.appendChild(box);
+  const ql=$('#flq');let tm=0;
+  ql.oninput=()=>{clearTimeout(tm);tm=setTimeout(()=>{q=ql.value;shown=40;draw()},150)};
+  $('#flx').onclick=close;box.onmousedown=e=>{if(e.target===box)close()};
+  box.addEventListener('keydown',e=>{e.stopPropagation();if(e.key=='Escape')close()});
+  $('#flu').onclick=()=>$('#ffu').click();
+  $('#ffu').onchange=e=>{addFiles([...e.target.files]);e.target.value=''};
+  $('#flm').onclick=()=>{shown+=40;draw()};
+  $('#flc').onclick=e=>{const b=e.target.closest('[data-fc]');if(b){cat=b.dataset.fc;shown=40;draw()}};
+  $('#fll').onclick=e=>{const r=e.target.closest('[data-fam]');if(r)use(r.dataset.fam,r.dataset.try)};
+}
+async function open(){build();box.classList.add('on');const ql=$('#flq');ql.value=q;ql.focus();$('#fll').innerHTML='<p class="mu" style="padding:10px">Loading fonts…</p>';await catalog();if(box.classList.contains('on'))draw()}
+function close(){if(!box)return;box.classList.remove('on');prev.forEach(l=>l.remove());prev.clear()}
+function results(){
+  const s=q.trim().toLowerCase();
+  let r=CAT.filter(f=>(!cat||f[1]==cat)&&(!s||f[0].toLowerCase().includes(s)||(CATL[f[1]]||'').toLowerCase().includes(s)));
+  if(s)r.sort((a,b)=>(b[0].toLowerCase().startsWith(s)-a[0].toLowerCase().startsWith(s))||a[0].localeCompare(b[0]));
+  else r.sort((a,b)=>(RANK.has(a[0])?RANK.get(a[0]):1e5)-(RANK.has(b[0])?RANK.get(b[0]):1e5)||a[0].localeCompare(b[0]));
+  return r}
+function preview(f){const n=f[0];if(have(n)||prev.has(n))return;const w=f[2];const l=document.createElement('link');l.rel='stylesheet';l.href=gurl(n,w.length?[w.includes(400)?400:w[0]]:null,n);document.head.appendChild(l);prev.set(n,l)}
+function draw(){
+  if(!box||!CAT)return;
+  $('#flc').querySelectorAll('[data-fc]').forEach(b=>b.classList.toggle('on',b.dataset.fc==cat));
+  const r=results(),part=r.slice(0,shown),L=$('#fll'),t=q.trim();
+  L.innerHTML=part.map(f=>`<div class="fr" data-fam="${esc(f[0])}"><span class="fp" style="font-family:'${esc(f[0])}',system-ui,sans-serif">${esc(f[0])}</span><small>${CATL[f[1]]||''}${f[2].length>1?' · '+f[2].length+' weights':''}</small>${have(f[0])?'<i class="ok">Added</i>':''}</div>`).join('')
+    +(!r.length&&t?`<div class="fr" data-fam="${esc(clean(t).replace(/\b\w/g,c=>c.toUpperCase()))}" data-try="1"><span class="fp">Try “${esc(clean(t))}” on Google Fonts</span><small>exact name</small></div>`:'');
+  part.forEach(preview);
+  $('#flm').style.display=r.length>shown?'flex':'none';
+  $('#fln').textContent=offline?'Could not reach the full Google Fonts catalog, so this shows popular fonts. You can still type any exact Google Fonts name to try it.':`${r.length} font${r.length==1?'':'s'}${t||cat?' found':''}. Click one to use it.`}
+async function use(n,tryit){
+  n=clean(n);if(!n)return;
+  const f=CAT&&CAT.find(x=>x[0]==n),pl=prev.get(n);if(pl){pl.remove();prev.delete(n)}
+  if(!have(n)){
+    toast('Loading '+n+'…');
+    const r=await loadG(n,f&&f[2].length?f[2]:null);
+    if(!r){toast(tryit?'No Google font called “'+n+'”':'Could not load '+n+' — check your connection');if(box&&box.classList.contains('on'))draw();return}
+    MYF.g.push({n,w:r.w,c:f?f[1]:''});FONTS.push(n);saveG();
+  }
+  close();applyFont(n);refresh();toast(n+' ready')}
+/* ---- uploads ---- */
+const isFont=f=>/\.(ttf|otf|woff2?)$/i.test(f.name)||/^font\//.test(f.type);
+async function addFiles(files){
+  let last=null;
+  for(const f of files){
+    if(!isFont(f)){toast('Not a font file: '+f.name);continue}
+    if(f.size>15e6){toast(f.name+' is too large (max 15 MB)');continue}
+    let n=clean(f.name.replace(/\.[^.]+$/,'').replace(/[-_]+/g,' ').replace(/([a-z])([A-Z])/g,'$1 $2'))||'Custom font';
+    const mineC=MYF.c.some(x=>x.n==n);
+    if(!mineC&&have(n))n+=' (uploaded)';
+    const buf=await f.arrayBuffer();let ff;
+    try{ff=new FontFace(n,buf.slice(0),{weight:'100 900'});await ff.load()}
+    catch(e){try{ff=new FontFace(n,buf.slice(0));await ff.load()}catch(e2){toast('Could not read '+f.name+'. Is it a valid font?');continue}}
+    const old=CFF.get(n);if(old)document.fonts.delete(old);
+    document.fonts.add(ff);CFF.set(n,ff);
+    try{await tx('readwrite',s=>s.put({n,buf,type:f.type||''}))}catch(e){toast('Added for this session only (browser storage unavailable)')}
+    if(!mineC)MYF.c.push({n});if(!have(n))FONTS.push(n);last=n;
+  }
+  if(last){close();applyFont(last);refresh();toast(last+' added')}}
+async function del(n){
+  const gi=MYF.g.findIndex(x=>x.n==n);
+  if(gi>-1){MYF.g.splice(gi,1);saveG();document.querySelectorAll('link[data-gf]').forEach(l=>{if(l.dataset.gf==n)l.remove()})}
+  else{const i=MYF.c.findIndex(x=>x.n==n);if(i<0)return;MYF.c.splice(i,1);const ff=CFF.get(n);if(ff)document.fonts.delete(ff);CFF.delete(n);try{await tx('readwrite',s=>s.delete(n))}catch(e){}}
+  const i=FONTS.indexOf(n);if(i>-1)FONTS.splice(i,1);
+  toast(S.o.some(o=>o.font==n)?'Removed. Text using it now shows a fallback font':'Font removed');
+  render();refresh()}
+/* ---- wiring ---- */
+document.addEventListener('click',e=>{
+  const t=e.target;let b;
+  if(b=t.closest('[data-delfont]')){e.stopPropagation();del(b.dataset.delfont);return}
+  if(b=t.closest('[data-usefont]')){applyFont(b.dataset.usefont);refresh();return}
+  if(t.closest('[data-fontlib]')){open();return}
+  if(t.closest('[data-fontup]')){build();$('#ffu').click()}
+},true);
+{const ws=$('#ws');if(ws){
+  ws.addEventListener('drop',e=>{const fs=[...(e.dataTransfer&&e.dataTransfer.files||[])];if(fs.length&&fs.every(isFont)){e.preventDefault();e.stopPropagation();addFiles(fs)}},true)}}
+/* ---- restore saved fonts on startup ---- */
+(async function init(){
+  try{const g=JSON.parse(localStorage.getItem(GK)||'[]');if(Array.isArray(g))g.forEach(x=>{if(x&&x.n&&!have(x.n)){MYF.g.push(x);FONTS.push(x.n);addLink(gurl(x.n,x.w),x.n)}})}catch(e){}
+  try{
+    const rows=await tx('readonly',s=>s.getAll())||[];
+    for(const r of rows){try{let ff;try{ff=new FontFace(r.n,r.buf,{weight:'100 900'});await ff.load()}catch(e){ff=new FontFace(r.n,r.buf);await ff.load()}document.fonts.add(ff);CFF.set(r.n,ff);MYF.c.push({n:r.n});if(!have(r.n))FONTS.push(r.n)}catch(e){}}
+  }catch(e){}
+  try{render()}catch(e){}refresh();
+})();
 })();
