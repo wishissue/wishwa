@@ -1,0 +1,28 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="theme-color" content="#050505"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Design Editor</title><meta name="description" content="A free, flexible, browser-based design editor. Templates, text effects, image tools, layers and export to PNG, JPG, WebP, PDF. No account, no backend."><link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23e11d2e'/%3E%3Cpath d='M16 7l9 5-9 5-9-5z' fill='%23fff'/%3E%3Cpath d='M7 16l9 5 9-5M7 20l9 5 9-5' fill='none' stroke='%23fff' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Bebas+Neue&family=Anton&family=Pacifico&family=Montserrat:wght@400;700;900&family=Oswald:wght@500;700&family=Bangers&family=Permanent+Marker&family=Orbitron:wght@500;800&family=Playfair+Display:wght@700;900&family=Lobster&family=Righteous&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css.css">
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.452.0/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+<script>
+/* Master file: pulls the markup (html.html) into the page, then starts the app (java.js). */
+(function(){
+  function fail(msg){
+    document.body.innerHTML='<div style="font:15px/1.6 Inter,system-ui,sans-serif;color:#eee;background:#050505;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center"><div style="max-width:520px"><h2 style="margin:0 0 8px">Design Editor could not start</h2><p style="color:#aaa;margin:0 0 12px">'+msg+'</p><code style="background:#161616;padding:8px 12px;border-radius:8px;display:inline-block">python3 -m http.server 8000</code><p style="color:#777;font-size:13px">then open http://localhost:8000</p></div></div>';
+  }
+  fetch('html.html').then(function(r){
+    if(!r.ok) throw new Error('html.html returned '+r.status);
+    return r.text();
+  }).then(function(markup){
+    document.body.insertAdjacentHTML('afterbegin',markup);
+    var s=document.createElement('script');
+    s.src='java.js';
+    s.onerror=function(){fail('java.js failed to load.')};
+    document.body.appendChild(s);
+  }).catch(function(){
+    fail('The page loads its parts (html.html, css.css, java.js) with fetch, which browsers block on file:// URLs. Run a tiny local server from this folder:');
+  });
+})();
+</script>
+</body>
+</html>
