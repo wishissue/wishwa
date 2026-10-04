@@ -98,13 +98,13 @@ Keep all four of `index.html`, `html.html`, `css.css` and `java.js` in the same 
 | --- | --- |
 | Pick a card in **Templates** | Load a starter design (this replaces the current canvas) |
 | Add from **Elements**, **Text** or **Uploads** | New shapes, text and images |
-| Click an object | Edit it in the right panel, drag the handles to resize or rotate |
+| Click an object | Edit it in the right panel, drag the handles to resize or rotate. Double-click text (or press `Enter`) to type on the canvas |
 | **Effects** tab | Style the selected layer, hover to preview, press Apply |
 | **Layers** tab | Reorder, rename, hide or lock |
 | **Brand** tab | Reuse saved colors, gradients, fonts and logos |
 | Choose a format, click **Export** | Download the finished design |
 
-**Keyboard shortcuts:** `Ctrl+K` command palette · `Ctrl+Z` / `Ctrl+Y` undo and redo · `Ctrl+D` duplicate · `Ctrl+C` / `Ctrl+V` copy and paste (images too) · `Ctrl+A` select all · `Ctrl+G` group · `Ctrl+Shift+G` ungroup · `Shift`-click multi-select · `Del` delete · arrows nudge (`Shift` = 10px) · `Ctrl+scroll` zoom · `Esc` close or cancel
+**Keyboard shortcuts:** `Ctrl+K` command palette · `Ctrl+Z` / `Ctrl+Y` undo and redo · `Ctrl+D` duplicate · `Ctrl+C` / `Ctrl+X` / `Ctrl+V` copy, cut and paste (images too) · `Ctrl+S` save · `Enter` / `F2` edit selected text · `Alt`-click select the layer below · drag on empty canvas to box-select · `Ctrl+A` select all · `Ctrl+G` group · `Ctrl+Shift+G` ungroup · `Shift`-click multi-select · `Del` delete · arrows nudge (`Shift` = 10px) · `Ctrl+scroll` zoom · `Esc` close or cancel
 
 > **Tip:** Press `Ctrl+K` and start typing. Almost everything in Wishwa is in the palette.
 

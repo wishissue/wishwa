@@ -181,3 +181,24 @@ input[type=range]::-moz-range-thumb{background:#fff;box-shadow:0 0 0 2px var(--a
 .fr .fp{flex:1;min-width:0;font-size:24px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .fr small{color:var(--mu);font-size:10.5px;white-space:nowrap}
 .fr .ok{font-style:normal;font-size:10px;padding:2px 7px;border-radius:6px;background:rgba(255,255,255,.1)}
+
+/* ===== UX patch ===== */
+#ts{position:fixed;left:50%;top:70px;transform:translateX(-50%);z-index:200;display:none;align-items:center;gap:12px;padding:8px 10px 8px 16px;border-radius:12px;max-width:92vw;font-size:13px;line-height:1.4}
+#ts.on{display:flex}#ts .b{min-height:32px;padding:4px 14px;font-weight:600}
+#ted{position:absolute;z-index:8;margin:0;padding:0;min-height:0;border:0;border-radius:0;outline:2px solid var(--ac3);outline-offset:0;background:transparent;resize:none;overflow:hidden;box-sizing:border-box;white-space:pre-wrap;overflow-wrap:break-word}
+#ted:focus{border:0;box-shadow:none}
+#mq{position:absolute;z-index:9;border:1.5px solid var(--ac3);background:var(--acs);pointer-events:none}
+#cb{position:absolute;top:10px;left:50%;transform:translateX(-50%);z-index:7;display:none;align-items:center;gap:10px;padding:6px 8px 6px 14px;border-radius:12px;font-size:13px;max-width:94%}
+#cb .b{min-height:34px;padding:4px 14px;font-weight:600}
+.nv{width:100%;min-height:0;padding:2px 4px;font-size:12px;border-radius:6px;background:var(--bg);border:1px solid var(--ac2);color:var(--tx);outline:0}
+label.r>span{cursor:text}
+label.r>input[type=range]+span:hover{text-decoration:underline dotted}
+.ly input[readonly]{cursor:pointer;text-overflow:ellipsis}
+.ly input:not([readonly]){background:var(--bg);outline:1px solid var(--ac2);border-radius:6px;cursor:text}
+.ly [role=button]{cursor:pointer}
+details.pos,details.sc{margin:10px 0}
+details.pos>summary,details.sc>summary{cursor:pointer;color:var(--mu);margin:8px 0}
+#svs{font-size:12px;white-space:nowrap;color:var(--mu);padding:0 6px}
+
+#gsel{position:absolute;border:1.5px solid var(--ac3,#ff6b74);pointer-events:none;display:none;z-index:5;box-sizing:border-box}
+#gsel i{position:absolute;left:50%;top:100%;transform:translate(-50%,8px);background:var(--pn,#140808);color:var(--tx,#fff);border:1px solid var(--gb,#555);font:600 12px Inter,sans-serif;padding:4px 9px;border-radius:8px;white-space:nowrap;font-style:normal}
