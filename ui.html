@@ -1,21 +1,21 @@
-<header class="glass">
-<div class="logo" aria-label="Editor"><i data-lucide="layers-3"></i></div>
+<header class="glass" role="banner">
+<div class="logo" aria-label="Wishwa"><svg viewBox="0 0 32 32" aria-hidden="true"><g fill="currentColor"><ellipse cx="16" cy="16" rx="4.2" ry="14.5"/><ellipse cx="16" cy="16" rx="4.2" ry="14.5" transform="rotate(60 16 16)"/><ellipse cx="16" cy="16" rx="4.2" ry="14.5" transform="rotate(120 16 16)"/></g><circle cx="16" cy="16" r="3.6" fill="var(--fl)"/></svg><span class="wm">wishwa</span></div><i class="vr" aria-hidden="true"></i>
 <button class="b" id="undo" data-t="Undo (Ctrl+Z)" aria-label="Undo"><i data-lucide="undo-2"></i></button><button class="b" id="redo" data-t="Redo (Ctrl+Y)" aria-label="Redo"><i data-lucide="redo-2"></i></button>
-<button class="b" id="kbtn" data-t="Command palette (Ctrl/Cmd+K)"><i data-lucide="command"></i>Ctrl K</button>
+<i class="vr" aria-hidden="true"></i><button class="b" id="kbtn" data-t="Command palette (Ctrl/Cmd+K)" aria-label="Open command palette"><i data-lucide="search"></i><span class="kl">Search commands</span><kbd>Ctrl K</kbd></button>
 <button class="b" id="newd" data-t="Start a new blank design"><i data-lucide="file-plus"></i>New</button>
 <div class="sp"></div>
-<span id="svs" role="status" title="Your work autosaves in this browser">Saved</span>
+<span id="svs" role="status" aria-live="polite" title="Your work autosaves in this browser">Saved</span><i class="vr" aria-hidden="true"></i>
 <button class="b" id="savetpl"><i data-lucide="bookmark-plus"></i>Save as Template</button>
 <button class="b" id="impj"><i data-lucide="folder-input"></i>Import</button>
 <select id="fmt" style="width:90px" aria-label="Export format"><option>PNG</option><option>JPG</option><option>WebP</option><option>PDF</option><option>JSON</option></select>
 <button class="b pri" id="exp"><i data-lucide="download"></i>Export</button>
 </header>
-<main>
-<nav id="rail" class="glass"></nav>
-<section id="lp" class="pn glass"></section>
-<div id="ws"><div id="scroll"><div id="sz"><div id="cv"></div><div id="sel"></div></div></div>
+<main id="app">
+<nav id="rail" class="glass" aria-label="Tools"></nav>
+<section id="lp" class="pn glass" aria-label="Library"></section>
+<div id="ws"><div id="empty" role="status"><div class="eb"><i class="blob" aria-hidden="true"></i><h3>Start something new</h3><p>Pick a template, add some text, or drop an image anywhere on the page.</p><div class="ea"><button class="b pri" data-go="templates">Browse templates</button><button class="b" data-go="text">Add text</button><button class="b" data-go="up">Upload image</button></div></div></div><div id="scroll"><div id="sz"><div id="cv"></div><div id="sel"></div></div></div>
 <div id="zb" class="glass"><button class="b" id="zo" aria-label="Zoom out"><i data-lucide="zoom-out"></i></button><button class="b" id="zl">100%</button><button class="b" id="zi" aria-label="Zoom in"><i data-lucide="zoom-in"></i></button><button class="b" id="zf" data-t="Fit" aria-label="Fit to screen"><i data-lucide="maximize"></i></button><button class="b" id="sn" data-t="Snapping" aria-label="Snapping"><i data-lucide="magnet"></i></button></div></div>
-<aside id="rp" class="pn glass"></aside>
+<aside id="rp" class="pn glass" aria-label="Properties"></aside>
 </main>
 <div id="cm" class="glass"></div><div id="ctb" class="glass"></div><div id="kp"><div id="kpb" class="glass"><input type="text" id="kq" aria-label="Search commands" placeholder="Type a command… (add text, export, fit canvas)" autocomplete="off"><div id="kl"></div></div></div><svg id="fxdefs" width="0" height="0" style="position:absolute"></svg><input type="file" id="fb" accept="image/*" multiple hidden><div id="tt" class="glass"></div>
 <input type="file" id="fi" accept="image/*" hidden><input type="file" id="fr" accept="image/*" hidden><input type="file" id="fj" accept=".json" hidden>
