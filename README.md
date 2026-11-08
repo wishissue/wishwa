@@ -20,7 +20,7 @@ I wanted a Canva-style tool that is free, quick to open and easy to bend to my o
 
 - **Free and account-free.** Open the page and start designing.
 - **Runs in your browser.** Your project lives on your device, and exports are rendered locally.
-- **Three small source files.** Markup, styles and logic are split into `ui.html`, `styles.css` and `app.js`, tied together by `index.html`. Fork it, read it, change it.
+- **Three small source files.** Markup, styles and logic are split into `html.html`, `css.css` and `java.js`, tied together by `index.html`. Fork it, read it, change it.
 
 ---
 
@@ -34,7 +34,7 @@ I wanted a Canva-style tool that is free, quick to open and easy to bend to my o
 | **Shapes** | Rectangle, rounded, circle, glass, line, triangle, star, hexagon, arrow |
 | **Text** | 12 Google Fonts plus Georgia and Courier New, weight, spacing, line height, alignment, italic, curved text |
 | **Fills** | Solid colors, multi-stop gradients, stroke and border |
-| **Canvas sizes** | YouTube, Full HD, Square, Story, Facebook, Banner, IG Portrait, Pinterest, LinkedIn, A4, Card, Logo |
+| **Canvas sizes** | YouTube, Full HD, Square, Story, Facebook, Banner |
 
 ### Images
 
@@ -48,10 +48,10 @@ I wanted a Canva-style tool that is free, quick to open and easy to bend to my o
 
 ![Effects studio with looks, glow and shadow stacks](screenshots/effects-tab.webp)
 
-Stackable text, shape and image effects. New in this version: **Aura, Float, Rim Light, Color Offset** (light and depth) and a **Color & Tone** group (**Pop, Matte Fade, Cinematic, Warm, Cool, Mono, Moody, Hue Shift, Blur**) that work on text, shapes and photos and are included in exports. Also: neon, glow, inner glow, soft, hard and long shadows, 3D, outline, sticker, glass, metallic, grain, scanlines, RGB split, chromatic, distortion, emboss, hollow, echo, lift, text box and splice.
+Stackable text and shape effects: neon, glow, inner glow, soft, hard and long shadows, 3D, outline, sticker, glass, metallic, grain, scanlines, RGB split, chromatic, distortion, emboss, hollow, echo, lift, text box and splice.
 
 - Hover to preview, then apply or revert.
-- Built-in looks (now including Cinematic, Pastel Matte, Neon Aura, Pop Art, Moody Film, Floating Card, Sunset and Wishy), plus save your own.
+- Built-in looks, plus save your own.
 - Copy and paste effect stacks, randomize, and adjust overall strength.
 
 ### Workflow
@@ -66,8 +66,7 @@ Stackable text, shape and image effects. New in this version: **Aura, Float, Rim
 
 ![Asset search showing photos and icons with license credits](screenshots/asset-search.webp)
 
-- **Themes:** Wishissue dark and light (the same blue Material 3 palette as the Wishissue site, following your system setting by default and shared with it through `wishissue-theme`), plus Lavender (Wishy Browser), Black and Deep crimson. The button next to Export cycles them.
-- **Empty-state start screen** with quick actions, a floating pill header, and the spinning Wishissue flower mark.
+- **Three color themes:** Black, Charcoal and Deep crimson.
 
 ### Export
 
@@ -78,19 +77,18 @@ PNG, JPG, WebP, PDF (single page, image-based) or project JSON. Import a JSON fi
 ## Project structure
 
 ```
-wishwa/
-├── index.html      Entry: meta/SEO, loading splash, loads styles.css, pulls in ui.html, then starts app.js
-├── ui.html         The editor's markup (toolbar, panels, canvas containers)
-├── styles.css      All styles, including the final "Pro polish" layer
-├── app.js          All editor logic (canvas, effects, layers, export, storage)
-├── manifest.json   Web app manifest (installable as an app)
+design-editor/
+├── index.html      Master file: head/meta, loads css.css, pulls in html.html, then starts java.js
+├── html.html       The editor's markup (toolbar, panels, canvas containers)
+├── css.css         All styles
+├── java.js         All editor logic (canvas, effects, layers, export, storage)
 ├── screenshots/    Images used in this README
 ├── LICENSE
 ├── .gitignore
 └── .nojekyll       Tells GitHub Pages to serve files as-is
 ```
 
-Keep `index.html`, `ui.html`, `styles.css` and `app.js` in the same folder.
+Keep all four of `index.html`, `html.html`, `css.css` and `java.js` in the same folder.
 
 ---
 
@@ -121,14 +119,14 @@ Open the live demo above. Nothing to install.
 ### Run it locally
 
 ```bash
-git clone https://github.com/wishissue/wishwa.git
-cd wishwa
+git clone https://github.com/wishissue/design-editor.git
+cd design-editor
 python3 -m http.server 8000
 ```
 
 Then open http://localhost:8000.
 
-> **Note:** `index.html` loads `ui.html` with `fetch()`, which browsers block on `file://` URLs. Double-clicking `index.html` therefore shows a short help message instead of the editor. Use any static server (`python3 -m http.server`, `npx serve`, VS Code Live Server) or GitHub Pages.
+> **Note:** `index.html` loads `html.html` with `fetch()`, which browsers block on `file://` URLs. Double-clicking `index.html` therefore shows a short help message instead of the editor. Use any static server (`python3 -m http.server`, `npx serve`, VS Code Live Server) or GitHub Pages.
 
 An internet connection is needed for fonts, icons and asset search. Wishwa itself loads without it, but fonts will fall back to system fonts.
 
@@ -137,7 +135,7 @@ An internet connection is needed for fonts, icons and asset search. Wishwa itsel
 1. Fork or push this repo to your GitHub account.
 2. Go to **Settings → Pages**.
 3. Set **Source** to *Deploy from a branch*, branch `main`, folder `/ (root)`.
-4. Save. The site goes live at `https://YOUR_USERNAME.github.io/wishwa/`.
+4. Save. The site goes live at `https://YOUR_USERNAME.github.io/design-editor/`.
 
 No Actions, build step or custom domain needed.
 

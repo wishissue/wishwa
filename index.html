@@ -1,36 +1,26 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="theme-color" content="#000000"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Wishwa — Free Browser Design Editor</title><meta name="description" content="A free, flexible, browser-based design editor. Templates, text effects, image tools, layers and export to PNG, JPG, WebP, PDF. No account, no backend."><link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%231560d4'/%3E%3Cg fill='%23fff' transform='translate(16 16) scale(.62) translate(-16 -16)'%3E%3Cellipse cx='16' cy='16' rx='4.2' ry='14.5'/%3E%3Cellipse cx='16' cy='16' rx='4.2' ry='14.5' transform='rotate(60 16 16)'/%3E%3Cellipse cx='16' cy='16' rx='4.2' ry='14.5' transform='rotate(120 16 16)'/%3E%3C/g%3E%3Ccircle cx='16' cy='16' r='2.3' fill='%231560d4'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;600;800&family=Bebas+Neue&family=Anton&family=Pacifico&family=Montserrat:wght@400;700;900&family=Oswald:wght@500;700&family=Bangers&family=Permanent+Marker&family=Orbitron:wght@500;800&family=Playfair+Display:wght@700;900&family=Lobster&family=Righteous&display=swap" rel="stylesheet">
-<script>try{var t=localStorage.getItem('ws_theme'),w=localStorage.getItem('wishissue-theme'),ok=['dark','light','lavender','black','crimson'];if(ok.indexOf(t)<0)t=(w=='light'||w=='dark')?w:(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme='dark'}</script>
-<link rel="stylesheet" href="styles.css">
-<link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icon.jpg">
-<meta name="color-scheme" content="dark light"><meta name="application-name" content="Wishwa"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
-<meta property="og:type" content="website"><meta property="og:site_name" content="Wishwa"><meta property="og:title" content="Wishwa — Free Browser Design Editor"><meta property="og:description" content="Templates, text effects, image tools, layers and export to PNG, JPG, WebP, PDF. No account, no backend."><meta property="og:url" content="https://wishissue.github.io/wishwa/"><meta property="og:image" content="https://wishissue.github.io/wishwa/screenshots/main-ui.webp">
-<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Wishwa — Free Browser Design Editor"><meta name="twitter:image" content="https://wishissue.github.io/wishwa/screenshots/main-ui.webp">
-<style>#boot{position:fixed;inset:0;z-index:999;display:grid;place-items:center;background:var(--bg,#000);transition:opacity .35s}#boot.out{opacity:0;pointer-events:none}#boot div{display:flex;flex-direction:column;align-items:center;gap:16px;font:600 13px "Plus Jakarta Sans",Inter,system-ui,sans-serif;color:var(--mu,#9fb1ce)}#boot svg{width:56px;height:56px;color:var(--ac,#a8c8ff);animation:bs 3s linear infinite}@keyframes bs{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){#boot svg{animation:none}}</style>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="theme-color" content="#050505"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Design Editor</title><meta name="description" content="A free, flexible, browser-based design editor. Templates, text effects, image tools, layers and export to PNG, JPG, WebP, PDF. No account, no backend."><link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23e11d2e'/%3E%3Cpath d='M16 7l9 5-9 5-9-5z' fill='%23fff'/%3E%3Cpath d='M7 16l9 5 9-5M7 20l9 5 9-5' fill='none' stroke='%23fff' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Bebas+Neue&family=Anton&family=Pacifico&family=Montserrat:wght@400;700;900&family=Oswald:wght@500;700&family=Bangers&family=Permanent+Marker&family=Orbitron:wght@500;800&family=Playfair+Display:wght@700;900&family=Lobster&family=Righteous&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css.css">
 <script src="https://cdn.jsdelivr.net/npm/lucide@0.452.0/dist/umd/lucide.min.js"></script>
 </head>
 <body>
-<div id="boot" role="status" aria-live="polite"><div><svg viewBox="0 0 32 32" aria-hidden="true"><g fill="currentColor"><ellipse cx="16" cy="16" rx="4.2" ry="14.5"/><ellipse cx="16" cy="16" rx="4.2" ry="14.5" transform="rotate(60 16 16)"/><ellipse cx="16" cy="16" rx="4.2" ry="14.5" transform="rotate(120 16 16)"/></g><circle cx="16" cy="16" r="3.6" fill="var(--bg,#000)"/></svg>Loading wishwa…</div></div>
-<noscript><p style="font:15px Inter,system-ui,sans-serif;color:#eee;background:#060606;padding:32px;position:fixed;inset:0;z-index:1000;margin:0">Wishwa needs JavaScript to run.</p></noscript>
 <script>
-/* Master file: pulls the markup (ui.html) into the page, then starts the app (app.js). */
+/* Master file: pulls the markup (html.html) into the page, then starts the app (java.js). */
 (function(){
   function fail(msg){
-    document.body.innerHTML='<div style="font:15px/1.6 Inter,system-ui,sans-serif;color:#eee;background:#000;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center"><div style="max-width:520px"><h2 style="margin:0 0 8px">Wishwa could not start</h2><p style="color:#aaa;margin:0 0 12px">'+msg+'</p><code style="background:#161616;padding:8px 12px;border-radius:8px;display:inline-block">python3 -m http.server 8000</code><p style="color:#777;font-size:13px">then open http://localhost:8000</p></div></div>';
+    document.body.innerHTML='<div style="font:15px/1.6 Inter,system-ui,sans-serif;color:#eee;background:#050505;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center"><div style="max-width:520px"><h2 style="margin:0 0 8px">Design Editor could not start</h2><p style="color:#aaa;margin:0 0 12px">'+msg+'</p><code style="background:#161616;padding:8px 12px;border-radius:8px;display:inline-block">python3 -m http.server 8000</code><p style="color:#777;font-size:13px">then open http://localhost:8000</p></div></div>';
   }
-  fetch('ui.html').then(function(r){
-    if(!r.ok) throw new Error('ui.html returned '+r.status);
+  fetch('html.html').then(function(r){
+    if(!r.ok) throw new Error('html.html returned '+r.status);
     return r.text();
   }).then(function(markup){
     document.body.insertAdjacentHTML('afterbegin',markup);
     var s=document.createElement('script');
-    s.src='app.js';
-    s.onload=function(){var b=document.getElementById('boot');if(b){b.classList.add('out');setTimeout(function(){b.remove()},400)}};
-    s.onerror=function(){fail('app.js failed to load.')};
+    s.src='java.js';
+    s.onerror=function(){fail('java.js failed to load.')};
     document.body.appendChild(s);
   }).catch(function(){
-    fail('The page loads its parts (ui.html, styles.css, app.js) with fetch, which browsers block on file:// URLs. Run a tiny local server from this folder:');
+    fail('The page loads its parts (html.html, css.css, java.js) with fetch, which browsers block on file:// URLs. Run a tiny local server from this folder:');
   });
 })();
 </script>
